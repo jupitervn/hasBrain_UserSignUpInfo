@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="30dp"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.hasbrain.usersignupinfo.SignUpStep2Activity">
+
+    <LinearLayout
+        android:id="@+id/ll_jobs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_jobs_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="Choose your job:" />
+
+        <android.support.v7.widget.AppCompatSpinner
+            android:id="@+id/sp_jobs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:spinnerMode="dropdown"
+            android:layout_toRightOf="@id/tv_jobs_label"
+            android:layout_marginLeft="10dp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_salary_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/salary_text_label"
+        android:layout_below="@id/ll_jobs" />
+
+    <SeekBar
+        android:id="@+id/sb_salary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:max="100000"
+        android:layout_marginTop="20dp"
+        android:layout_below="@id/tv_salary_label" />
+
+    <TextView
+        android:layout_marginLeft="10dp"
+        android:id="@+id/tv_min_salary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/sb_salary"
+        android:layout_below="@id/sb_salary"
+        android:text="$0" />
+
+    <TextView
+        android:id="@+id/tv_max_salary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@id/sb_salary"
+        android:layout_below="@id/sb_salary"
+        android:layout_marginRight="10dp"
+        android:text="$10000" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_max_salary"
+        android:id="@+id/tv_interest_label"
+        android:layout_marginTop="15dp"
+        android:text="Which sports do you like?" />
+
+    <TableLayout
+        android:id="@+id/tl_interests"
+        android:layout_width="match_parent"
+        android:layout_below="@id/tv_interest_label"
+        android:layout_height="wrap_content">
+
+        <TableRow
+            android:paddingTop="20dp"
+            android:paddingBottom="10dp">
+
+            <android.support.v7.widget.AppCompatCheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Football"
+                android:layout_weight="1"
+                style="@style/InterestCheckBox" />
+
+            <android.support.v7.widget.AppCompatCheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tennis"
+                android:layout_weight="1"
+                style="@style/InterestCheckBox" />
+
+            <android.support.v7.widget.AppCompatCheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ping pong"
+                android:layout_weight="1"
+                style="@style/InterestCheckBox" />
+        </TableRow>
+
+        <TableRow
+            android:paddingTop="20dp"
+            android:paddingBottom="10dp">
+
+            <android.support.v7.widget.AppCompatCheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Swimming"
+                android:layout_weight="1"
+                style="@style/InterestCheckBox" />
+
+            <android.support.v7.widget.AppCompatCheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Volleyball"
+                android:layout_weight="1"
+                style="@style/InterestCheckBox" />
+
+            <android.support.v7.widget.AppCompatCheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Basketball"
+                android:layout_weight="1"
+                style="@style/InterestCheckBox" />
+        </TableRow>
+    </TableLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:id="@+id/bt_done"
+        android:layout_height="wrap_content"
+        android:text="DONE"
+        android:layout_marginTop="20dp"
+        style="@style/ScreenChangedButton"
+        android:layout_below="@id/tl_interests"
+        android:layout_centerHorizontal="true" />
+
+</RelativeLayout>

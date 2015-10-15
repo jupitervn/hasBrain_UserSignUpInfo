@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">UserSignUpInfo</string>
+    <string name="salary_text_label">Your salary: %1$d dollars</string>
+</resources>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="jobs">
+        <item>IT/Software</item>
+        <item>IT/Hardware</item>
+        <item>Architecture</item>
+        <item>Doctor</item>
+        <item>Marketing</item>
+        <item>Business Analyst</item>
+        <item>Accounting</item>
+        <item>Banking</item>
+        <item>Customer Service</item>
+        <item>Education</item>
+        <item>Fashion</item>
+        <item>Industrial</item>
+        <item>Insurance</item>
+        <item>Other</item>
+    </string-array>
+</resources>
