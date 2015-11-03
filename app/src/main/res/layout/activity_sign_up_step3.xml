@@ -9,7 +9,8 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:layout_gravity="center"
     android:orientation="vertical"
-    tools:context="com.hasbrain.usersignupinfo.SignUpStep3Activity">
+    tools:context="com.hasbrain.usersignupinfo.SignUpStep3Activity"
+    android:background="@drawable/done_screen_bgr">
 
     <TextView
         android:id="@+id/tv_success_label"

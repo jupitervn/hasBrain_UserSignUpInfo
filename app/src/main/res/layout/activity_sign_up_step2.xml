@@ -45,6 +45,8 @@
         android:layout_height="wrap_content"
         android:max="100000"
         android:layout_marginTop="20dp"
+        android:progressDrawable="@drawable/salary_seekbar_progress_drawable"
+        android:thumb="@drawable/salary_seekbar_thumb"
         android:layout_below="@id/tv_salary_label" />
 
     <TextView
@@ -141,5 +143,4 @@
         style="@style/ScreenChangedButton"
         android:layout_below="@id/tl_interests"
         android:layout_centerHorizontal="true" />
-
 </RelativeLayout>
