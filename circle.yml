@@ -1,0 +1,10 @@
+test:
+  pre:
+    - emulator -avd circleci-android22 -no-audio -no-window:
+        background: true
+        parallel: true
+    - circle-android wait-for-boot
+  override:
+    - ./gradlew signup-uitest:connectedAndroidTest
+  post:
+    - cp -r signup-uitest/build/outputs/androidTests/connected/* $CIRCLE_TEST_REPORTS
