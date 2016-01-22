@@ -1,6 +1,8 @@
 checkout:
   post:
     - rm -rf app
+    - export $TARGET_REPO
+    - mkdir solutions
     - git clone $TARGET_REPO solutions
     - cp -r solutions/app app
 test:
