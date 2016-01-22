@@ -1,3 +1,8 @@
+checkout:
+  post:
+    - rm -rf app
+    - git clone $TARGET_REPO solutions
+    - cp -r solutions/app app
 test:
   pre:
     - emulator -avd circleci-android22 -no-audio -no-window:
@@ -8,3 +13,6 @@ test:
     - ./gradlew signup-uitest:connectedAndroidTest
   post:
     - cp -r signup-uitest/build/reports/androidTests/connected/* $CIRCLE_TEST_REPORTS
+notify:
+  webhooks:
+   - url: http://54.255.201.98/hook/circle/complete-story
