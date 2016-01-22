@@ -2,11 +2,12 @@ checkout:
   post:
     - rm -rf app
     - mkdir solutions
-    - git clone "$TARGET_REPO" solutions
+    - git clone "https://github.com/jupitervn/hasBrain_UserSignUpInfo.git" solutions
     - cd solutions
     - git checkout solution
     - cd ..
     - cp -r solutions/app app
+    - ls -la
 test:
   pre:
     - emulator -avd circleci-android22 -no-audio -no-window:
@@ -14,6 +15,7 @@ test:
         parallel: true
     - circle-android wait-for-boot
   override:
+    - pwd
     - ./gradlew signup-uitest:connectedAndroidTest
   post:
     - cp -r signup-uitest/build/reports/androidTests/connected/* $CIRCLE_TEST_REPORTS
