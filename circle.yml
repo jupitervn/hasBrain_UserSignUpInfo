@@ -2,7 +2,7 @@ checkout:
   post:
     - rm -rf app
     - mkdir solutions
-    - git clone "https://github.com/jupitervn/hasBrain_UserSignUpInfo.git" solutions
+    - git clone "$TARGET_REPO" solutions
     - cd solutions
     - git checkout solution
     - cd ..
