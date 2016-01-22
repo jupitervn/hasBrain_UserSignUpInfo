@@ -8,7 +8,6 @@ import org.junit.runner.RunWith;
 
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
-import android.test.InstrumentationTestCase;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.assertion.ViewAssertions.doesNotExist;
@@ -20,7 +19,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.withHint;
  * Created by Jupiter (vu.cao.duy@gmail.com) on 10/7/15.
  */
 @RunWith(AndroidJUnit4.class)
-public class SignUpStep1ActivityTest extends InstrumentationTestCase {
+public class SignUpStep1ActivityTest {
 
     @Rule
     public ActivityTestRule<SignUpStep1Activity> mActivityRule = new ActivityTestRule<>(SignUpStep1Activity.class);

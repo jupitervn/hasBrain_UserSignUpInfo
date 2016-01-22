@@ -49,6 +49,13 @@ public class SignUpStep2Activity extends AppCompatActivity implements SeekBar.On
     public void onDoneClicked(View v) {
         Intent startActivity3Intent = new Intent(this, SignUpStep3Activity.class);
         startActivity(startActivity3Intent);
+        overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_down);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_down);
     }
 
     @Override

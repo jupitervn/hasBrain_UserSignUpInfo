@@ -30,10 +30,17 @@ public class SignUpStep1Activity extends AppCompatActivity {
     public void onNextClicked(View v) {
         Intent startActivity2 = new Intent(this, SignUpStep2Activity.class);
         startActivity(startActivity2);
+        overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_down);
     }
     @OnClick(R.id.iv_avatar)
     public void onAvatarClicked(View v) {
         Intent openCameraToTakePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(openCameraToTakePicture, REQUEST_TO_TAKE_PICTURE);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_down);
     }
 }
