@@ -7,4 +7,4 @@ test:
   override:
     - ./gradlew signup-uitest:connectedAndroidTest
   post:
-    - cp -r signup-uitest/build/outputs/androidTests/connected/* $CIRCLE_TEST_REPORTS
+    - cp -r signup-uitest/build/reports/androidTests/connected/* $CIRCLE_TEST_REPORTS

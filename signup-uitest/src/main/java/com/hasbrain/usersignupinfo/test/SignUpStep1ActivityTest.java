@@ -10,7 +10,6 @@ import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
 import static android.support.test.espresso.Espresso.onView;
-import static android.support.test.espresso.assertion.ViewAssertions.doesNotExist;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withHint;
@@ -26,7 +25,7 @@ public class SignUpStep1ActivityTest {
 
     @Test
     public void testUI_ShouldContainsTextWithHintFirstName() throws Exception {
-        onView(withHint("First name")).check(doesNotExist());
+        onView(withHint("First name")).check(matches(isDisplayed()));
         onView(withHint("Last name")).check(matches(isDisplayed()));
     }
 
