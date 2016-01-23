@@ -1,4 +1,6 @@
 checkout:
+  pre:
+    - export TARGET_REPO="https://github.com/jupitervn/hasBrain_UserSignUpInfo.git"
   post:
     - rm -rf app
     - mkdir solutions
@@ -7,17 +9,17 @@ checkout:
     - git checkout solution
     - cd ..
     - cp -r solutions/app app
-    - ls -la
 test:
   pre:
     - emulator -avd circleci-android22 -no-audio -no-window:
         background: true
         parallel: true
+    - ./gradlew assembleDebug
     - circle-android wait-for-boot
     - sleep 30
     - adb shell input keyevent 82
   override:
-    - pwd
+    - echo "Running UI tests"
     - ./gradlew signup-uitest:connectedAndroidTest
   post:
     - cp -r signup-uitest/build/reports/androidTests/connected/* $CIRCLE_TEST_REPORTS
