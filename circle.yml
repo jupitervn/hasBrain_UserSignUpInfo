@@ -1,10 +1,8 @@
 checkout:
-  pre:
-    - export TARGET_REPO="https://github.com/jupitervn/hasBrain_UserSignUpInfo.git"
   post:
     - rm -rf app
     - mkdir solutions
-    - git clone "$TARGET_REPO" solutions
+    - git clone "https://github.com/jupitervn/hasBrain_UserSignUpInfo.git" solutions
     - cd solutions
     - git checkout solution
     - cd ..
