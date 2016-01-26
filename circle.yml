@@ -10,7 +10,8 @@ checkout:
     - git checkout solution
     - rm -rf signup-uitest
     - mkdir signup-uitest
-    - cp -rf ../signup-uitest signup-uitest
+    - ls -la
+    - cp -r ../signup-uitest signup-uitest
     - echo "\r\ninclude ':signup-uitest'" >> settings.gradle
 test:
   pre:
