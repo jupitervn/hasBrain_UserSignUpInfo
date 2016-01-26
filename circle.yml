@@ -11,13 +11,11 @@ test:
     - emulator -avd circleci-android22 -no-audio -no-window:
         background: true
         parallel: true
-    - solutions/gradlew assembleDebug
+    - cd solutions && ./gradlew assembleDebug
     - circle-android wait-for-boot
-    - sleep 30
     - adb shell input keyevent 82
   override:
-    - echo "Running UI tests"
-    - solutions/gradlew signup-uitest:connectedAndroidTest
+    - cd solutions && ./gradlew signup-uitest:connectedAndroidTest
   post:
     - cp -r solutions/signup-uitest/build/reports/androidTests/connected/* $CIRCLE_TEST_REPORTS
 notify:
