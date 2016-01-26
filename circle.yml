@@ -4,31 +4,22 @@ general:
       - test_exercise_1_1
 checkout:
   post:
-    - mkdir solutions
-    - git clone "$TARGET_REPO" solutions
-    - cd solutions
-    - pwd
-    - git checkout solution
-    - rm -rf signup-uitest
-    - mkdir signup-uitest
-    - ls -la
-    - pwd
-    - cp -r ../signup-uitest signup-uitest
-    - echo "\r\ninclude ':signup-uitest'" >> settings.gradle
+    - chmod +x prepare_solution.sh
+    - ./prepare_solution.sh
 test:
   pre:
     - emulator -avd circleci-android22 -no-audio -no-window:
         background: true
         parallel: true
-    - ./gradlew assembleDebug
+    - solutions/gradlew assembleDebug
     - circle-android wait-for-boot
     - sleep 30
     - adb shell input keyevent 82
   override:
     - echo "Running UI tests"
-    - ./gradlew signup-uitest:connectedAndroidTest
+    - solutions/gradlew signup-uitest:connectedAndroidTest
   post:
-    - cp -r signup-uitest/build/reports/androidTests/connected/* $CIRCLE_TEST_REPORTS
+    - cp -r solutions/signup-uitest/build/reports/androidTests/connected/* $CIRCLE_TEST_REPORTS
 notify:
   webhooks:
    - url: http://54.255.201.98/hook/circle/complete-story
