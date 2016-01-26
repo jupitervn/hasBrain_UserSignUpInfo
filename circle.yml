@@ -4,11 +4,11 @@ general:
       - test_exercise_1_1
 checkout:
   post:
-    - rm -rf app
     - mkdir solutions
     - git clone "$TARGET_REPO" solutions
     - cd solutions
     - git checkout solution
+    - mkdir signup-uitest
     - cp -rf ../signup-uitest signup-uitest
     - echo "\r\ninclude ':signup-uitest'" >> settings.gradle
 test:
