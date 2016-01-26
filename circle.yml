@@ -13,6 +13,7 @@ test:
         parallel: true
     - cd solutions && ./gradlew assembleDebug
     - circle-android wait-for-boot
+    - sleep 30
     - adb shell input keyevent 82
   override:
     - cd solutions && ./gradlew signup-uitest:connectedAndroidTest
