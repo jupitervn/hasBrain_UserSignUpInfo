@@ -1,12 +1,16 @@
+general:
+  branches:
+    only:
+      - test_exercise_1_1
 checkout:
   post:
     - rm -rf app
     - mkdir solutions
-    - git clone "https://github.com/jupitervn/hasBrain_UserSignUpInfo.git" solutions
+    - git clone "$TARGET_REPO" solutions
     - cd solutions
-    - git checkout solution
-    - cd ..
-    - cp -r solutions/app app
+    - git checkout cirsolution
+    - cp -rf ../signup-uitest signup-uitest
+    - echo "\r\ninclude ':signup-uitest'" >> settings.gradle
 test:
   pre:
     - emulator -avd circleci-android22 -no-audio -no-window:

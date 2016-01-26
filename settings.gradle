@@ -1,1 +1,2 @@
-include ':app', ':signup-uitest'
+include ':app'
+include ':signup-uitest'
