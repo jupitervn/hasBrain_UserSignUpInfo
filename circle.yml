@@ -8,6 +8,7 @@ checkout:
     - git clone "$TARGET_REPO" solutions
     - cd solutions
     - git checkout solution
+    - rm -rf signup-uitest
     - mkdir signup-uitest
     - cp -rf ../signup-uitest signup-uitest
     - echo "\r\ninclude ':signup-uitest'" >> settings.gradle
