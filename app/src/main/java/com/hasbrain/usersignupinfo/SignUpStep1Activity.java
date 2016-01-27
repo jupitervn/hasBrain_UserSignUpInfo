@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
 
@@ -28,10 +29,21 @@ public class SignUpStep1Activity extends AppCompatActivity {
 
     @OnClick(R.id.bt_next)
     public void onNextClicked(View v) {
-        Intent startActivity2 = new Intent(this, SignUpStep2Activity.class);
-        startActivity(startActivity2);
-        overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_down);
+        if (validateData()) {
+            Intent startActivity2 = new Intent(this, SignUpStep2Activity.class);
+            startActivity(startActivity2);
+        }
     }
+
+    private boolean validateData() {
+        boolean result = true;
+        if (!Patterns.EMAIL_ADDRESS.matcher(etEmail.getText().toString()).find()) {
+            etEmail.setError("Email is invalid");
+            result = false;
+        }
+        return result;
+    }
+
     @OnClick(R.id.iv_avatar)
     public void onAvatarClicked(View v) {
         Intent openCameraToTakePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);

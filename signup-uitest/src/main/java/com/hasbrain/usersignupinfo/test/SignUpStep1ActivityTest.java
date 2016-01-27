@@ -17,12 +17,12 @@ import android.support.test.runner.AndroidJUnit4;
 import android.text.InputType;
 
 import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.Espresso.pressBack;
 import static android.support.test.espresso.action.ViewActions.clearText;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.doesNotExist;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
-import static android.support.test.espresso.matcher.ViewMatchers.hasErrorText;
 import static android.support.test.espresso.matcher.ViewMatchers.isChecked;
 import static android.support.test.espresso.matcher.ViewMatchers.isClickable;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
@@ -30,6 +30,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.isNotChecked;
 import static android.support.test.espresso.matcher.ViewMatchers.withHint;
 import static android.support.test.espresso.matcher.ViewMatchers.withInputType;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static com.jupitervn.uitest.espresso.matchers.ExtraViewMatchers.hasSafelyErrorText;
 
 /**
  * Created by Jupiter (vu.cao.duy@gmail.com) on 10/7/15.
@@ -93,54 +94,86 @@ public class SignUpStep1ActivityTest {
         inputLastName("Last name");
         inputEmail("abc@gmail.com");
         inputPhoneNumber("01234568789");
+        onView(withText("Male")).perform(ViewActions.click());
         pressDoneButton();
         onView(withText("Step 2")).check(matches(isDisplayed()));
     }
 
+
+    @Test
+    public void testUI_pressBackShouldShowStep1() throws Exception {
+        inputFirstName("First name");
+        inputLastName("Last name");
+        inputEmail("abc@gmail.com");
+        inputPhoneNumber("01234568789");
+        onView(withText("Male")).perform(ViewActions.click());
+        pressDoneButton();
+        onView(withText("Step 2")).check(matches(isDisplayed()));
+        pressBack();
+        onView(withText("Step1")).check(matches(isDisplayed()));
+    }
+
+    @Test
+    public void testUI_ShouldNotOpenStep2IfGenderIsNotChosen() throws Exception {
+        inputFirstName("First name");
+        inputLastName("Last name");
+        inputEmail("abc@gmail.com");
+        inputPhoneNumber("01234568789");
+        pressDoneButton();
+        onView(withText("Step 2")).check(doesNotExist());
+    }
+
     @Test
     public void testUI_ShouldShowErrorIfFirstNameEmpty() throws Exception {
+        Spoon.screenshot(mActivityRule.getActivity(), "before_press_done");
         pressDoneButton();
-        onView(hasErrorText("You must enter FirstName")).check(matches(isDisplayed()));
+        Spoon.screenshot(mActivityRule.getActivity(), "after_press_done");
+        onView(hasSafelyErrorText("You must enter FirstName")).check(matches(isDisplayed()));
         inputFirstName("First name");
-        onView(hasErrorText("You must enter FirstName")).check(doesNotExist());
+        onView(hasSafelyErrorText("You must enter FirstName")).check(doesNotExist());
     }
 
     @Test
     public void testUI_ShouldShowErrorIfLastNameEmpty() throws Exception {
         pressDoneButton();
         Spoon.screenshot(mActivityRule.getActivity(), "no_last_name");
-        onView(hasErrorText("You must enter LastName")).check(matches(isDisplayed()));
+        onView(hasSafelyErrorText("You must enter LastName")).check(matches(isDisplayed()));
         inputFirstName("last name");
-        onView(hasErrorText("You must enter LastName")).check(doesNotExist());
+        onView(hasSafelyErrorText("You must enter LastName")).check(doesNotExist());
     }
 
     @Test
     public void testUI_ShouldShowErrorIfEmailEmpty() throws Exception {
         pressDoneButton();
-        onView(hasErrorText("You must enter Email")).check(matches(isDisplayed()));
+        onView(hasSafelyErrorText("You must enter Email")).check(matches(isDisplayed()));
         inputEmail("email");
-        onView(hasErrorText("You must enter Email")).check(doesNotExist());
+        onView(hasSafelyErrorText("You must enter Email")).check(doesNotExist());
     }
 
     @Test
     public void testUI_ShouldShowErrorIfPhoneNumberEmpty() throws Exception {
         pressDoneButton();
-        onView(hasErrorText("You must enter PhoneNumber")).check(matches(isDisplayed()));
+        onView(hasSafelyErrorText("You must enter PhoneNumber")).check(matches(isDisplayed()));
         inputPhoneNumber("0978123712");
-        onView(hasErrorText("You must enter PhoneNumber")).check(doesNotExist());
+        onView(hasSafelyErrorText("You must enter PhoneNumber")).check(doesNotExist());
     }
 
     @Test
     public void testUI_ShouldShowErrorIfEmailInvalid() throws Exception {
         inputEmail("abc@gmail");
         pressDoneButton();
-        onView(hasErrorText("Email is invalid")).check(matches(isDisplayed()));
+        onView(hasSafelyErrorText("Email is invalid")).check(matches(isDisplayed()));
         clearEmailText();
-        onView(hasErrorText("Email is invalid")).check(doesNotExist());
+        Spoon.screenshot(mActivityRule.getActivity(), "after_clear_text");
+        onView(hasSafelyErrorText("Email is invalid")).check(doesNotExist());
         inputEmail("abc@g");
         pressDoneButton();
-        onView(hasErrorText("Email is invalid")).check(matches(isDisplayed()));
+        onView(hasSafelyErrorText("Email is invalid")).check(matches(isDisplayed()));
     }
+
+
+
+
 
     private void clearEmailText() {
         onView(withHint("Email")).perform(clearText());
