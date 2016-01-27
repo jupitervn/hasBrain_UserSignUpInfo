@@ -2,14 +2,14 @@ apply plugin: 'com.android.test'
 
 buildscript {
     repositories {
-        mavenLocal()
         mavenCentral()
 //        maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
+        maven { url "https://jitpack.io" }
     }
 
     dependencies {
 //        classpath 'com.shazam.fork:fork-gradle-plugin:1.2.0-SNAPSHOT'
-//        classpath 'com.stanfy.spoon:spoon-gradle-plugin:1.0.5-SNAPSHOT'
+        classpath 'com.github.jupitervn:spoon-gradle-plugin:v1.0.6.4-SNAPSHOT'
     }
 }
 
@@ -30,7 +30,11 @@ android {
 }
 
 //apply plugin: 'fork'
-//apply plugin: 'spoon'
+apply plugin: 'spoon'
+
+spoon {
+    adbTimeout = 60*10
+}
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])

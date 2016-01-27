@@ -18,7 +18,7 @@ test:
   override:
     - cd solutions && ./gradlew signup-uitest:connectedAndroidTest
   post:
-    - cp -r solutions/signup-uitest/build/reports/androidTests/connected/* $CIRCLE_TEST_REPORTS
+    - cp -r solutions/signup-uitest/build/spoon/* $CIRCLE_TEST_REPORTS
 notify:
   webhooks:
    - url: http://54.255.201.98/hook/circle/complete-story

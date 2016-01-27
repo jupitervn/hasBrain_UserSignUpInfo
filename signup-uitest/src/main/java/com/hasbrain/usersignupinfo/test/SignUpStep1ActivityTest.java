@@ -1,6 +1,7 @@
 package com.hasbrain.usersignupinfo.test;
 
 import com.hasbrain.usersignupinfo.SignUpStep1Activity;
+import com.squareup.spoon.Spoon;
 
 import org.hamcrest.Matchers;
 import org.junit.Rule;
@@ -107,6 +108,7 @@ public class SignUpStep1ActivityTest {
     @Test
     public void testUI_ShouldShowErrorIfLastNameEmpty() throws Exception {
         pressDoneButton();
+        Spoon.screenshot(mActivityRule.getActivity(), "no_last_name");
         onView(hasErrorText("You must enter LastName")).check(matches(isDisplayed()));
         inputFirstName("last name");
         onView(hasErrorText("You must enter LastName")).check(doesNotExist());
