@@ -7,6 +7,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import android.support.test.espresso.ViewInteraction;
 import android.support.test.espresso.action.ViewActions;
 import android.support.test.espresso.assertion.ViewAttributeAssertions;
 import android.support.test.espresso.matcher.ViewMatchers;
@@ -15,7 +16,12 @@ import android.support.test.runner.AndroidJUnit4;
 import android.text.InputType;
 
 import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.action.ViewActions.clearText;
+import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.action.ViewActions.typeText;
+import static android.support.test.espresso.assertion.ViewAssertions.doesNotExist;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.matcher.ViewMatchers.hasErrorText;
 import static android.support.test.espresso.matcher.ViewMatchers.isChecked;
 import static android.support.test.espresso.matcher.ViewMatchers.isClickable;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
@@ -35,15 +41,13 @@ public class SignUpStep1ActivityTest {
 
     @Test
     public void testUI_ShouldContainsTextWithHintFirstName() throws Exception {
-        onView(withHint("First name")).check(matches(isDisplayed()));
-        onView(withHint("Last name")).check(matches(isDisplayed()));
+        getFirstNameView().check(matches(isDisplayed()));
+        getLastNameView().check(matches(isDisplayed()));
     }
 
     @Test
     public void testUI_FirstNameAndLastNameShouldHaveEqualWidth() throws Exception {
-        onView(withHint("First name")).check(ViewAttributeAssertions.hasEqualWidth(withHint("Last name")));
-//        onView(withHint("First name")).check(PositionAssertions.isLeftAlignedWith(withHint("Last name")));
-//        onView(withHint("First name")).check(PositionAssertions.isRightAlignedWith(withHint("Last name")));
+        getFirstNameView().check(ViewAttributeAssertions.hasEqualWidth(withHint("Last name")));
     }
 
     @Test
@@ -82,7 +86,90 @@ public class SignUpStep1ActivityTest {
         onView(withText("Male")).check(matches(isNotChecked()));
     }
 
+    @Test
+    public void testUI_ShouldOpenStep2WhenPressNext() throws Exception {
+        inputFirstName("First name");
+        inputLastName("Last name");
+        inputEmail("abc@gmail.com");
+        inputPhoneNumber("01234568789");
+        pressDoneButton();
+        onView(withText("Step 2")).check(matches(isDisplayed()));
+    }
+
+    @Test
+    public void testUI_ShouldShowErrorIfFirstNameEmpty() throws Exception {
+        pressDoneButton();
+        onView(hasErrorText("You must enter FirstName")).check(matches(isDisplayed()));
+        inputFirstName("First name");
+        onView(hasErrorText("You must enter FirstName")).check(doesNotExist());
+    }
+
+    @Test
+    public void testUI_ShouldShowErrorIfLastNameEmpty() throws Exception {
+        pressDoneButton();
+        onView(hasErrorText("You must enter LastName")).check(matches(isDisplayed()));
+        inputFirstName("last name");
+        onView(hasErrorText("You must enter LastName")).check(doesNotExist());
+    }
+
+    @Test
+    public void testUI_ShouldShowErrorIfEmailEmpty() throws Exception {
+        pressDoneButton();
+        onView(hasErrorText("You must enter Email")).check(matches(isDisplayed()));
+        inputEmail("email");
+        onView(hasErrorText("You must enter Email")).check(doesNotExist());
+    }
+
+    @Test
+    public void testUI_ShouldShowErrorIfPhoneNumberEmpty() throws Exception {
+        pressDoneButton();
+        onView(hasErrorText("You must enter PhoneNumber")).check(matches(isDisplayed()));
+        inputPhoneNumber("0978123712");
+        onView(hasErrorText("You must enter PhoneNumber")).check(doesNotExist());
+    }
+
+    @Test
+    public void testUI_ShouldShowErrorIfEmailInvalid() throws Exception {
+        inputEmail("abc@gmail");
+        pressDoneButton();
+        onView(hasErrorText("Email is invalid")).check(matches(isDisplayed()));
+        clearEmailText();
+        onView(hasErrorText("Email is invalid")).check(doesNotExist());
+        inputEmail("abc@g");
+        pressDoneButton();
+        onView(hasErrorText("Email is invalid")).check(matches(isDisplayed()));
+    }
+
+    private void clearEmailText() {
+        onView(withHint("Email")).perform(clearText());
+    }
 
 
+    private void inputPhoneNumber(String phoneNumber) {
+        onView(withHint("Phone number")).perform(typeText(phoneNumber));
+    }
 
+    private void inputEmail(String email) {
+        onView(withHint("Email")).perform(typeText(email));
+    }
+
+    private void inputLastName(String lastname) {
+        getLastNameView().perform(typeText(lastname));
+    }
+
+    private void inputFirstName(String firstname) {
+        getFirstNameView().perform(typeText(firstname));
+    }
+
+    private void pressDoneButton() {
+        onView(withText("NEXT")).perform(click());
+    }
+
+    private ViewInteraction getLastNameView() {
+        return onView(withHint("Last name"));
+    }
+
+    private ViewInteraction getFirstNameView() {
+        return onView(withHint("First name"));
+    }
 }
