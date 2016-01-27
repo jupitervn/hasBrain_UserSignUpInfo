@@ -1,6 +1,7 @@
 package com.hasbrain.usersignupinfo.test;
 
 import com.hasbrain.usersignupinfo.SignUpStep2Activity;
+import com.jupitervn.uitest.espresso.ScreenshotIfFailRule;
 import com.jupitervn.uitest.espresso.actions.ExtraViewActions;
 
 import org.hamcrest.Matchers;
@@ -11,7 +12,6 @@ import org.junit.runner.RunWith;
 
 import android.support.test.espresso.ViewInteraction;
 import android.support.test.espresso.matcher.ViewMatchers;
-import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
 import static android.support.test.espresso.Espresso.onView;
@@ -31,7 +31,7 @@ public class SignUpStep2ActivityTest {
     public ExpectedException expectedException = ExpectedException.none();
 
     @Rule
-    public ActivityTestRule<SignUpStep2Activity> mActivityRule = new ActivityTestRule<>(SignUpStep2Activity.class);
+    public ScreenshotIfFailRule<SignUpStep2Activity> mActivityRule = new ScreenshotIfFailRule<>(SignUpStep2Activity.class);
     public static final String[] SPORTS_STRING = new String[]{"Football", "Tennis", "Ping pong", "Swimming",
             "Volleyball", "Basketball"};
 

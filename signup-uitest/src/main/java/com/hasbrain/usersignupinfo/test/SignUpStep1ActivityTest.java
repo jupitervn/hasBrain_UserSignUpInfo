@@ -1,6 +1,7 @@
 package com.hasbrain.usersignupinfo.test;
 
 import com.hasbrain.usersignupinfo.SignUpStep1Activity;
+import com.jupitervn.uitest.espresso.ScreenshotIfFailRule;
 import com.squareup.spoon.Spoon;
 
 import org.hamcrest.Matchers;
@@ -12,7 +13,6 @@ import android.support.test.espresso.ViewInteraction;
 import android.support.test.espresso.action.ViewActions;
 import android.support.test.espresso.assertion.ViewAttributeAssertions;
 import android.support.test.espresso.matcher.ViewMatchers;
-import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.text.InputType;
 
@@ -39,7 +39,7 @@ import static com.jupitervn.uitest.espresso.matchers.ExtraViewMatchers.hasSafely
 public class SignUpStep1ActivityTest {
 
     @Rule
-    public ActivityTestRule<SignUpStep1Activity> mActivityRule = new ActivityTestRule<>(SignUpStep1Activity.class);
+    public ScreenshotIfFailRule<SignUpStep1Activity> mActivityRule = new ScreenshotIfFailRule<>(SignUpStep1Activity.class);
 
     @Test
     public void testUI_ShouldContainsTextWithHintFirstName() throws Exception {
