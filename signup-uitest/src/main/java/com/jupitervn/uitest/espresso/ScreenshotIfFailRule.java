@@ -17,17 +17,21 @@ import android.view.View;
  * Created by Jupiter (vu.cao.duy@gmail.com) on 1/27/16.
  */
 public class ScreenshotIfFailRule<T extends Activity> extends ActivityTestRule<T> {
-
-    public ScreenshotIfFailRule(Class<T> activityClass) {
+    private ActivityTestRule<T> activityTestRule;
+    public ScreenshotIfFailRule(Class<T> activityClass, ActivityTestRule<T> activityTestRule) {
         super(activityClass);
+        this.activityTestRule = activityTestRule;
     }
 
-    public ScreenshotIfFailRule(Class<T> activityClass, boolean initialTouchMode) {
+    public ScreenshotIfFailRule(Class<T> activityClass, boolean initialTouchMode, ActivityTestRule<T> activityTestRule) {
         super(activityClass, initialTouchMode);
+        this.activityTestRule = activityTestRule;
     }
 
-    public ScreenshotIfFailRule(Class<T> activityClass, boolean initialTouchMode, boolean launchActivity) {
+    public ScreenshotIfFailRule(Class<T> activityClass, boolean initialTouchMode, boolean launchActivity,
+            ActivityTestRule<T> activityTestRule) {
         super(activityClass, initialTouchMode, launchActivity);
+        this.activityTestRule = activityTestRule;
     }
 
     @Override
@@ -45,6 +49,6 @@ public class ScreenshotIfFailRule<T extends Activity> extends ActivityTestRule<T
                 defaultFailureHandler.handle(throwable, matcher);
             }
         });
-        return super.apply(base, description);
+        return activityTestRule.apply(base, description);
     }
 }

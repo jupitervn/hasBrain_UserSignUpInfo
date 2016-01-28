@@ -1,25 +1,23 @@
 package com.hasbrain.usersignupinfo.test;
 
 import com.hasbrain.usersignupinfo.SignUpStep2Activity;
+import com.hasbrain.usersignupinfo.test.page.Step2Page;
 import com.jupitervn.uitest.espresso.ScreenshotIfFailRule;
-import com.jupitervn.uitest.espresso.actions.ExtraViewActions;
 
-import org.hamcrest.Matchers;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 
-import android.support.test.espresso.ViewInteraction;
-import android.support.test.espresso.matcher.ViewMatchers;
+import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.assertion.ViewAssertions.doesNotExist;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isClickable;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static android.support.test.espresso.matcher.ViewMatchers.withClassName;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.containsString;
 
@@ -28,16 +26,21 @@ import static org.hamcrest.Matchers.containsString;
  */
 @RunWith(AndroidJUnit4.class)
 public class SignUpStep2ActivityTest {
-    public ExpectedException expectedException = ExpectedException.none();
 
     @Rule
-    public ScreenshotIfFailRule<SignUpStep2Activity> mActivityRule = new ScreenshotIfFailRule<>(SignUpStep2Activity.class);
-    public static final String[] SPORTS_STRING = new String[]{"Football", "Tennis", "Ping pong", "Swimming",
-            "Volleyball", "Basketball"};
+    public ScreenshotIfFailRule<SignUpStep2Activity> mActivityRule = new ScreenshotIfFailRule<>(SignUpStep2Activity.class,
+            new ActivityTestRule<>(SignUpStep2Activity.class));
+    private Step2Page step2Page;
+
+    @Before
+    public void setUp() throws Exception {
+        step2Page = new Step2Page();
+
+    }
 
     @Test
     public void testUI_ShouldDisplaySalarySeekbar() throws Exception {
-        getSalaraySeekbar().check(matches(isDisplayed()));
+        step2Page.getSalaraySeekbar().check(matches(isDisplayed()));
         onView(withText(containsString("Your salary"))).check(matches(isDisplayed()));
         onView(withText("$0")).check(matches(isDisplayed()));
         onView(withText("$100000")).check(matches(isDisplayed()));
@@ -45,44 +48,38 @@ public class SignUpStep2ActivityTest {
 
     @Test
     public void testUI_SalaryRangeShouldIncreaseBy100() throws Exception {
-        getSalaraySeekbar().perform(ExtraViewActions.setSeekbarProgresss(10));
+        step2Page.setSalaryPercent(10);
         onView(withText("Your salary: 10000 dollars")).check(matches(isDisplayed()));
-        getSalaraySeekbar().perform(ExtraViewActions.setSeekbarProgresss(32));
+        step2Page.setSalaryPercent(32);
         onView(withText("Your salary: 32000 dollars")).check(matches(isDisplayed()));
     }
 
     @Test
     public void testUI_ShouldHaveDoneButton() throws Exception {
-        onView(withText("DONE")).check(matches(isDisplayed())).check(matches(isClickable()));
+        step2Page.getDoneButton().check(matches(isDisplayed())).check(matches(isClickable()));
     }
 
     @Test
     public void testShouldHaveSportsCheckBox() throws Exception {
-        for (String sport : SPORTS_STRING) {
-            onView(withText(sport)).check(matches(isDisplayed())).check(matches(withClassName(containsString("CheckBox")))).check(matches(isClickable()));
+        for (String sport : Step2Page.SPORTS_STRING) {
+            step2Page.checkSportWithString(sport);
         }
     }
 
     @Test
     public void testUI_shouldSelectSportsBeforePressDone() throws Exception {
-        pressDoneButton();
-        onView(withText("Step2")).check(matches(isDisplayed()));
+        step2Page.pressDoneButton();
+        step2Page.isPageDisplay();
+        onView(withText("Step 3")).check(doesNotExist());
     }
 
     @Test
-    public void testUI_shouldCloseAppIfSportsIsChosen() throws Exception {
-        onView(withText(SPORTS_STRING[0])).check(matches(isDisplayed())).perform(click());
-        pressDoneButton();
-        expectedException.expect(RuntimeException.class);
-        expectedException.expectMessage(containsString("forget to launch"));
-    }
-
-    private void pressDoneButton() {
-        onView(withText("DONE")).perform(click());
+    public void testUI_shouldShowStep3IfSportsChecked() throws Exception {
+        onView(withText(Step2Page.SPORTS_STRING[0])).check(matches(isDisplayed())).perform(click());
+        step2Page.isPageDisappear();
+        onView(withText("Step 3")).check(matches(isDisplayed()));
     }
 
 
-    private ViewInteraction getSalaraySeekbar() {
-        return onView(ViewMatchers.withClassName(Matchers.containsString("SeekBar")));
-    }
+
 }

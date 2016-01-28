@@ -22,7 +22,7 @@ public class SignUpStep3Activity extends AppCompatActivity {
     public void onSendEmailClicked(View v) {
         Intent sendEmailIntent = new Intent(Intent.ACTION_SENDTO);
         sendEmailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{"test@hasbrain.com"});
-        sendEmailIntent.putExtra(Intent.EXTRA_SUBJECT, "User's info result");
+        sendEmailIntent.putExtra(Intent.EXTRA_SUBJECT, "User's registration info");
         sendEmailIntent.setData(Uri.parse("mailto:"));
         if (sendEmailIntent.resolveActivity(getPackageManager()) != null) {
             startActivity(sendEmailIntent);

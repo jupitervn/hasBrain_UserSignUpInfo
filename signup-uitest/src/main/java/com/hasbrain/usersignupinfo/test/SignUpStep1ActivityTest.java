@@ -13,11 +13,11 @@ import android.support.test.espresso.ViewInteraction;
 import android.support.test.espresso.action.ViewActions;
 import android.support.test.espresso.assertion.ViewAttributeAssertions;
 import android.support.test.espresso.matcher.ViewMatchers;
+import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.text.InputType;
 
 import static android.support.test.espresso.Espresso.onView;
-import static android.support.test.espresso.Espresso.pressBack;
 import static android.support.test.espresso.action.ViewActions.clearText;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.typeText;
@@ -39,7 +39,8 @@ import static com.jupitervn.uitest.espresso.matchers.ExtraViewMatchers.hasSafely
 public class SignUpStep1ActivityTest {
 
     @Rule
-    public ScreenshotIfFailRule<SignUpStep1Activity> mActivityRule = new ScreenshotIfFailRule<>(SignUpStep1Activity.class);
+    public ScreenshotIfFailRule<SignUpStep1Activity> mActivityRule = new ScreenshotIfFailRule<>(SignUpStep1Activity.class,
+            new ActivityTestRule<>(SignUpStep1Activity.class));
 
     @Test
     public void testUI_ShouldContainsTextWithHintFirstName() throws Exception {
@@ -88,30 +89,6 @@ public class SignUpStep1ActivityTest {
         onView(withText("Male")).check(matches(isNotChecked()));
     }
 
-    @Test
-    public void testUI_ShouldOpenStep2WhenPressNext() throws Exception {
-        inputFirstName("First name");
-        inputLastName("Last name");
-        inputEmail("abc@gmail.com");
-        inputPhoneNumber("01234568789");
-        onView(withText("Male")).perform(ViewActions.click());
-        pressDoneButton();
-        onView(withText("Step 2")).check(matches(isDisplayed()));
-    }
-
-
-    @Test
-    public void testUI_pressBackShouldShowStep1() throws Exception {
-        inputFirstName("First name");
-        inputLastName("Last name");
-        inputEmail("abc@gmail.com");
-        inputPhoneNumber("01234568789");
-        onView(withText("Male")).perform(ViewActions.click());
-        pressDoneButton();
-        onView(withText("Step 2")).check(matches(isDisplayed()));
-        pressBack();
-        onView(withText("Step1")).check(matches(isDisplayed()));
-    }
 
     @Test
     public void testUI_ShouldNotOpenStep2IfGenderIsNotChosen() throws Exception {

@@ -1,5 +1,6 @@
 package com.hasbrain.usersignupinfo;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -46,16 +47,13 @@ public class SignUpStep2Activity extends AppCompatActivity implements SeekBar.On
 
     @OnClick(R.id.bt_done)
     public void onDoneClicked(View v) {
-//        Intent startActivity3Intent = new Intent(this, SignUpStep3Activity.class);
-//        startActivity(startActivity3Intent);
-//        overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_down);
-        finish();
+        Intent startActivity3Intent = new Intent(this, SignUpStep3Activity.class);
+        startActivity(startActivity3Intent);
     }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_down);
     }
 
     @Override
