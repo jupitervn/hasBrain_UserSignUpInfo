@@ -12,12 +12,13 @@ echo "After clone"
 function add_permissions {
   local PERMISSION_LINE="<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\"\/><uses-permission android:name=\"android.permission.READ_EXTERNAL_STORAGE\"\/><\/manifest>"
   echo "${PERMISSION_LINE}"
-  find . -not -path "*build/*" -name AndroidManifest.xml
-  find . -not -path "*build/*" -name AndroidManifest.xml -exec sed -i '.bak' "s/<\/manifest>/${PERMISSION_LINE}/" {} \;
+  find . -not -path "*build/*" -name "AndroidManifest.xml" -exec echo {} \;
+  find . -not -path "*build/*" -name "AndroidManifest.xml" -exec sed -i '.bak' "s/<\/manifest>/${PERMISSION_LINE}/" {} \;
 }
 cd solutions
 git checkout solution
 add_permissions
+find . -not -path "*build/*" -name "AndroidManifest.xml" -exec cat {} \;
 rm -rf signup-uitest
 cp -r ../signup-uitest signup-uitest
 echo "include ':signup-uitest'" >> settings.gradle
