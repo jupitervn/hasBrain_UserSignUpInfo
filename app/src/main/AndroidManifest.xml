@@ -18,4 +18,5 @@
         <activity android:name=".SignUpStep2Activity"></activity>
         <activity android:name=".SignUpStep3Activity"></activity>
     </application>
-<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/><uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/></manifest>
+
+</manifest>
