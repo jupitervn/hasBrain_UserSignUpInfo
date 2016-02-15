@@ -16,6 +16,7 @@ import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.runner.AndroidJUnit4;
 import android.text.InputType;
 
+import static android.support.test.espresso.Espresso.closeSoftKeyboard;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.Espresso.pressBack;
 import static android.support.test.espresso.action.ViewActions.clearText;
@@ -177,23 +178,27 @@ public class SignUpStep1ActivityTest {
 
     private void clearEmailText() {
         onView(withHint("Email")).perform(clearText());
+        closeSoftKeyboard();
     }
-
 
     private void inputPhoneNumber(String phoneNumber) {
         onView(withHint("Phone number")).perform(typeText(phoneNumber));
+        closeSoftKeyboard();
     }
 
     private void inputEmail(String email) {
         onView(withHint("Email")).perform(typeText(email));
+        closeSoftKeyboard();
     }
 
     private void inputLastName(String lastname) {
         getLastNameView().perform(typeText(lastname));
+        closeSoftKeyboard();
     }
 
     private void inputFirstName(String firstname) {
         getFirstNameView().perform(typeText(firstname));
+        closeSoftKeyboard();
     }
 
     private void pressDoneButton() {
