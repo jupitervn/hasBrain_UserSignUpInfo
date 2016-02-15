@@ -2,9 +2,8 @@
 # Script to checkout target repo and prepare for test.
 # This script will clone the solution code into "solutions" directory
 # Then copy the ui test folder into solutions and include it into the settings.gradle
+# It will also add the read/write external permission so that spoon screenshot can work correctly.
 #
-#
-export TARGET_REPO="https://github.com/jupitervn/Exercise1Solution.git"
 rm -rf solutions
 mkdir solutions
 git clone "$TARGET_REPO" solutions
