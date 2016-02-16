@@ -10,7 +10,6 @@ git clone "$TARGET_REPO" solutions
 echo "After clone"
 function add_permissions {
   local PERMISSION_LINE="<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\"\/><uses-permission android:name=\"android.permission.READ_EXTERNAL_STORAGE\"\/><\/manifest>"
-  echo "${PERMISSION_LINE}"
   find . -not -path "*build/*" -name "AndroidManifest.xml" -exec echo "FILE NAME {}" \;
   find . -not -path "*build/*" -name "AndroidManifest.xml" -exec sed -i.bak "s/<\/manifest>/${PERMISSION_LINE}/" "{}" \;
 }

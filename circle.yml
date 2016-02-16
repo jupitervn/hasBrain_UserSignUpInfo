@@ -8,7 +8,7 @@ checkout:
     - ./prepare_solution.sh
 test:
   pre:
-    - mksdcard -l e 512M mysdcard.img
+    - mksdcard -l e 256M mysdcard.img
     - ls -la
     - emulator -avd circleci-android22 -no-audio -no-window -sdcard mysdcard.img:
         background: true
